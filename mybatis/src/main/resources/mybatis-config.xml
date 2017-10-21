@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!-- 
+	properties:引入外部properties配置文件
+		resource:类路径下资源
+		url:网络路径或磁盘路径下资源
+ -->
+<properties resource="jdbc.properties"></properties>
+<!-- 
+	settings设置项
+		setting：具体设置项
+			name：设置项名
+			value：设置项取值
+ -->
+<settings>
+	<setting name="mapUnderscoreToCamelCase" value="true"/>
+</settings>
+<!-- 
+	typeAliases:别名处理器，为Java类型起别名
+		typeAlias:具体一个
+			type:要气别名的类全名，
+			alias：自定义别名，默认为类名(不区分大小写)
+		package:批量起别名
+			name：指定包名，为当前包及后代包的每个类起个默认别名
+			@Alias:java注解为类自定义别名
+ -->
+<typeAliases>
+	<typeAlias alias="emp" type="bean.Employee"/>
+	<!-- <package name="bean"/> -->
+</typeAliases>
+<!-- 
+	enviroments:环境们，mybatis可内置多种环境
+		environment：配置具体环境信息
+			id:当前环境的唯一标识
+			<transactionManager>:事物管理器
+				type:事物管理器的类型(类的全名或别名)
+					JDBC：
+					MANAGER：
+			<dataSource>：数据源
+				type:
+					POOLED:连接池
+					JNDI:
+					UNPOOLED:不使用连接池
+ -->
+<environments default="development">
+	<environment id="test">
+		<transactionManager type=""></transactionManager>
+		<dataSource type=""></dataSource>
+	</environment>
+  <environment id="development">
+    <transactionManager type="JDBC"/>
+    <dataSource type="POOLED">
+      <property name="driver" value="${driver}"/>
+      <property name="url" value="${url}"/>
+      <property name="username" value="${name}"/>
+      <property name="password" value="${password}"/>
+    </dataSource>
+  </environment>
+</environments>
+<mappers>
+  <mapper resource="bean/EmployeeMapper.xml"/>
+</mappers>
+</configuration>
