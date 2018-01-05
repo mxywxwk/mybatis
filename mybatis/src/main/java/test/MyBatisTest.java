@@ -40,7 +40,7 @@ public class MyBatisTest {
 	public void test1() throws IOException{
 		Employee emp=session.selectOne("bean.EmployeeMapper.getEmpById", 1);
 		System.out.println(emp);
-		session.close();
+		this.close();
 	}
 	@Test
 	public void test2(){
